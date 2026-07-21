@@ -1,0 +1,18 @@
+"""Template for local API keys.
+
+Copy to api_keys_local.py and fill secrets. Do not commit api_keys_local.py.
+"""
+
+# DeepSeek（推荐，OpenAI 兼容接口）
+DEEPSEEK_API_KEY = 
+DEEPSEEK_BASE_URL = "
+
+# 其他平台（可选）
+OPENAI_API_KEY = ""
+OPENAI_BASE_URL = ""
+ALI_API_KEY = ""
+GOOGLE_API_KEY = ""
+
+# 默认运行时配置
+LOVERGRAPH_PLATFORM = "deepseek"
+LOVERGRAPH_MODEL = "deepseek-chat"  # 或 deepseek-reasoner（更强推理，更慢）

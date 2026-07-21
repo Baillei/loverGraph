@@ -1,0 +1,24 @@
+{
+  "turns": [
+    {
+      "role": "matchmaker",
+      "template": "各位好，我是媒婆{matchmaker_name}。今天在{venue}组这场{meeting_type}。规矩我先说在前面：合法合规，不许骗婚骗财；没谈成，饭钱可以不计较，但五金、贵重礼物要原样归还。{assistant_name}记一下。男方女方和家长都在，咱们按流程来。"
+    },
+    {
+      "role": "male_side",
+      "template": "{parents_intro}"
+    },
+    {
+      "role": "matchmaker",
+      "template": "嗯。女方这边也打个招呼。"
+    },
+    {
+      "role": "female_side",
+      "template": "{parents_intro}"
+    },
+    {
+      "role": "matchmaker",
+      "template": "{investigation_call}"
+    }
+  ]
+}

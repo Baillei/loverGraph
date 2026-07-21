@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "venueGraph/trial-output/v1",
+  "title": "SessionScriptOutput",
+  "description": "venueGraph 庭审输出。字段参考 GT 转写格式并扩展，供数字人生成；不对齐任何真实案件内容。",
+  "type": "object",
+  "required": ["schema_version", "scenario_id", "session_id", "title", "dialogues", "digital_human_assets"],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "scenario_id": { "type": "string" },
+    "session_id": { "type": "string" },
+    "title": { "type": "string" },
+    "venue": { "type": "string" },
+    "meeting_type": { "type": "string" },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "max_rounds": { "type": "integer", "description": "法官发言次数上限" },
+        "word_count_limit": { "type": "integer" },
+        "word_count_used": { "type": "integer" },
+        "rounds_used": { "type": "integer", "description": "法官已发言次数" },
+        "duration_minutes_limit": { "type": "number" },
+        "male_has_lawyer": { "type": "boolean" },
+        "female_has_lawyer": { "type": "boolean" },
+        "termination": { "type": "string" },
+        "phases_completed": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "personas": {
+      "type": "array",
+      "description": "五角色大五人格与价值偏好快照",
+      "items": {
+        "type": "object",
+        "properties": {
+          "role": { "type": "string" },
+          "name": { "type": "string" },
+          "archetype": { "enum": ["neutral", "social", "professional"] },
+          "big_five": { "type": "object" },
+          "value_preferences": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "dialogues": {
+      "type": "array",
+      "description": "超越 GT：含 think/emotion/value_signal/skills/routing 等",
+      "items": {
+        "type": "object",
+        "properties": {
+          "speaker": { "type": "integer" },
+          "role": { "type": "string" },
+          "role_name": { "type": "string" },
+          "phase": { "type": "string" },
+          "text": { "type": "string" },
+          "think": { "type": "string" },
+          "emotion": { "type": "object" },
+          "value_signal": { "type": "array" },
+          "contract_refs": { "type": "array" },
+          "skills_used": { "type": "array" },
+          "routing": { "type": "object" },
+          "validator_passed": { "type": "boolean" },
+          "interrupted": { "type": "boolean" }
+        }
+      }
+    },
+    "dispute_tracker": { "type": "object" },
+    "tool_calls": { "type": "array" },
+    "matchmaker_routing_log": { "type": "array" },
+    "discipline_warnings": { "type": "object" },
+    "verdict": { "type": "object" },
+    "digital_human_assets": {
+      "type": "object",
+      "properties": {
+        "emotion_timeline": { "type": "array" },
+        "gesture_hints": { "type": "array" },
+        "value_arc": { "type": "array" }
+      }
+    }
+  }
+}

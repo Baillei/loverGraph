@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "venueGraph/trial-scenario/v1",
+  "title": "MatchScenario",
+  "description": "庭审模拟场景定义：入口背景，不整段注入 LLM，按角色/阶段切片下发",
+  "type": "object",
+  "required": [
+    "scenario_id",
+    "five_w_one_h",
+    "narrative",
+    "venue",
+    "parties",
+    "ideal_partner_notes",
+    "tension_points",
+    "trait_pool",
+    "simulation"
+  ],
+  "properties": {
+    "scenario_id": { "type": "string" },
+    "version": { "type": "string", "default": "1.0" },
+    "source": {
+      "type": "string",
+      "description": "场景来源说明，如经典案例、改编、虚构"
+    },
+    "five_w_one_h": {
+      "type": "object",
+      "required": ["who", "what", "when", "where", "why", "how"],
+      "properties": {
+        "who": { "type": "string", "description": "当事人及利害关系人" },
+        "what": { "type": "string", "description": "案由与法律关系" },
+        "when": { "type": "string", "description": "关键时间线" },
+        "where": { "type": "string", "description": "地点与管辖" },
+        "why": { "type": "string", "description": "争议根源与起诉动机" },
+        "how": { "type": "string", "description": "纠纷如何发生并进入诉讼" }
+      }
+    },
+    "narrative": {
+      "type": "object",
+      "description": "场景导语，供人阅读/CLI 展示，不直接作为 LLM 全局上下文",
+      "required": ["title", "synopsis"],
+      "properties": {
+        "title": { "type": "string" },
+        "synopsis": { "type": "string" },
+        "atmosphere": { "type": "string" },
+        "pre_meeting_context": { "type": "string" }
+      }
+    },
+    "venue": { "type": "string" },
+    "meeting_type": { "type": "string" },
+    "parties": {
+      "type": "object",
+      "required": ["matchmaker", "male", "female"],
+      "properties": {
+        "matchmaker": { "type": "object" },
+        "clerk": { "type": "object" },
+        "male": { "type": "object" },
+        "female": { "type": "object" }
+      }
+    },
+    "ideal_partner_notes": { "type": "string" },
+    "tension_points": { "type": "array", "items": { "type": "string" } },
+    "value_tensions": {
+      "type": "array",
+      "description": "价值不对齐维度",
+      "items": {
+        "type": "object",
+        "properties": {
+          "axis": { "type": "string" },
+          "male_values": { "type": "array", "items": { "type": "string" } },
+          "female_values": { "type": "array", "items": { "type": "string" } },
+          "description": { "type": "string" }
+        }
+      }
+    },
+    "relationship_issues": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "专业争点标签，如合同效力、举证责任"
+    },
+    "trait_pool": {
+      "type": "object",
+      "required": ["total_count", "items", "male_bundle", "female_bundle"],
+      "properties": {
+        "total_count": {
+          "type": "integer",
+          "description": "全局证据槽位 N；实际 items 可 ≤ N，表示确有证据缺失"
+        },
+        "description": { "type": "string" },
+        "items": { "type": "array" },
+        "male_bundle": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "原告方证据 PP（id 列表）"
+        },
+        "female_bundle": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "被告方证据 DP（id 列表）"
+        }
+      }
+    },
+    "simulation": {
+      "type": "object",
+      "properties": {
+        "max_rounds": { "type": "integer" },
+        "male_has_lawyer": { "type": "boolean" },
+        "female_has_lawyer": { "type": "boolean" },
+        "seed": { "type": "integer" },
+        "constraints": {
+          "type": "object",
+          "description": "外置庭审约束，见 SessionConstraints",
+          "properties": {
+            "word_count_limit": { "type": "integer", "description": "count：总词数上限" },
+            "words_per_minute": { "type": "integer" },
+            "max_rounds": { "type": "integer" },
+            "soft_budget_ratio": { "type": "number" },
+            "hard_budget_ratio": { "type": "number" },
+            "required_phases": { "type": "array", "items": { "type": "string" } },
+            "phase_round_soft_caps": { "type": "object" },
+            "require_final_statements": { "type": "boolean" },
+            "auto_force_close_at_hard_limit": { "type": "boolean" }
+          }
+        }
+      }
+    }
+  }
+}

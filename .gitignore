@@ -1,0 +1,21 @@
+# secrets
+config/api_keys_local.py
+.env
+
+# python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+.venv/
+
+# outputs
+data/output/*
+!data/output/.gitkeep
+
+# ide
+.idea/
+.vscode/
+*.swp

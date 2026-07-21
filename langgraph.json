@@ -1,0 +1,7 @@
+{
+  "dependencies": ["."],
+  "graphs": {
+    "lover": "./src/lover_graph/graph/lover_graph.py:build_graph"
+  },
+  "env": ".env"
+}
